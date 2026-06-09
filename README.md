@@ -4,11 +4,12 @@ This guide walks you through customizing **testing.html**, a single-page “link
 
 **Files you care about:**
 
-| File | What it is |
-|------|------------|
-| `testing.html` | Your page — open this to edit everything |
-| `fonts/` | Optional folder for a custom font (create it if you use one) |
-| `testing-RUNBOOK.md` | This guide |
+| File                               | What it is                                                   |
+| ---------------------------------- | ------------------------------------------------------------ |
+| `testing.html`                     | Your page — open this to edit everything                     |
+| `profile.jpg` (or `.png`, `.webp`) | Optional profile photo — same folder as `testing.html`       |
+| `fonts/`                           | Optional folder for a custom font (create it if you use one) |
+| `testing-RUNBOOK.md`               | This guide                                                   |
 
 ---
 
@@ -24,7 +25,7 @@ This guide walks you through customizing **testing.html**, a single-page “link
 
 ```
 ┌─────────────────────────────────┐
-│  [YN]  ← avatar initials        │
+│  [photo or YN]  ← profile image │
 │  Your Name  ← title             │
 │  Description...  ← subtitle     │
 │                                 │
@@ -46,15 +47,55 @@ Everything inside the big card is in one HTML file. Colors and fonts are set nea
 
 Open `testing.html` and scroll to the bottom (the part that looks like normal writing, not code with `{` and `}`).
 
-| What you see | Change it to |
-|--------------|--------------|
-| `<title>Your Name</title>` (near the top) | Your name — this is the browser tab title |
-| `<div class="avatar">YN</div>` | 1–2 letters for the square badge (e.g. `AB`) |
-| `<h1>Your Name</h1>` | Your display name |
-| Text inside `<p class="subtitle">...</p>` | Short bio or tagline |
-| `© 2026 Your Name` in the footer | Your copyright line |
+| What you see                              | Change it to                                               |
+| ----------------------------------------- | ---------------------------------------------------------- |
+| `<title>Your Name</title>` (near the top) | Your name — this is the browser tab title                  |
+| `YN` inside `<div class="avatar">`        | 1–2 letters when you are **not** using a photo (e.g. `AB`) |
+| `<h1>Your Name</h1>`                      | Your display name                                          |
+| Text inside `<p class="subtitle">...</p>` | Short bio or tagline                                       |
+| `© 2026 Your Name` in the footer          | Your copyright line                                        |
 
 **Tip:** Only change the words between the `>` and `<` tags. Leave the tags themselves alone.
+
+---
+
+## Step 1b — Profile photo (optional)
+
+By default the page shows **initials** in a colored square. You can use a **photo** instead.
+
+**Same folder as the page** — the easiest setup:
+
+1. Save your photo next to `testing.html`, e.g. `profile.jpg` (`.png` and `.webp` work too).
+2. In `testing.html`, find the avatar block. It looks like this:
+
+   ```html
+   <div class="avatar">
+     <!-- <img src="./profile.jpg" alt=""> -->
+     YN
+   </div>
+   ```
+
+3. **Uncomment** the image line — remove `<!--` at the start and `-->` at the end so it becomes:
+
+   ```html
+   <img src="./profile.jpg" alt="" />
+   ```
+
+4. Make sure `src` matches your real filename (e.g. `./photo.png`).
+5. You can delete the `YN` line or leave it; once the image loads, the letters are hidden automatically.
+6. Save and refresh the browser.
+
+**Serving from the same location** — `./profile.jpg` means “this file, in the same folder as the HTML page.” That works on your computer when you preview, and it works online as long as you upload the image **together with** `testing.html` and keep them in the same folder on the host.
+
+**Subfolder (optional)** — you can also use e.g. `./images/profile.jpg` if you prefer an `images` folder beside `testing.html`. Upload that folder when you go live.
+
+**Photo tips**
+
+- Square or nearly square photos look best (the box crops to a square).
+- Aim for at least 200×200 pixels; larger is fine.
+- Keep the file reasonably small (under ~500 KB) so the page loads quickly.
+
+**Switch back to initials** — comment out or delete the `<img ...>` line and put your letters back (e.g. `YN`).
 
 ---
 
@@ -64,9 +105,7 @@ Links live in a list that starts with `<ul class="links">`. Each link looks like
 
 ```html
 <li>
-  <a href="https://example.com">
-    Website
-  </a>
+  <a href="https://example.com"> Website </a>
 </li>
 ```
 
@@ -89,11 +128,11 @@ Cut a whole `<li>...</li>` block and paste it where you want it in the list. The
 
 **Special URLs**
 
-| Type | Example |
-|------|---------|
-| Website | `href="https://yoursite.com"` |
-| Email | `href="mailto:you@example.com"` |
-| Archive folder on same site | `href="./archive/"` |
+| Type                        | Example                         |
+| --------------------------- | ------------------------------- |
+| Website                     | `href="https://yoursite.com"`   |
+| Email                       | `href="mailto:you@example.com"` |
+| Archive folder on same site | `href="./archive/"`             |
 
 ---
 
@@ -101,17 +140,17 @@ Cut a whole `<li>...</li>` block and paste it where you want it in the list. The
 
 Near the top of the file, find the block labeled **USER THEME**. Each line is one color. Use hex codes like `#ff00aa` (from a color picker) or names like `white` and `black`.
 
-| Setting | What it controls |
-|---------|------------------|
-| `--color-bg` | Background behind the card |
-| `--color-surface` | The main card panel |
-| `--color-link` | Link button background |
-| `--color-link-hover` | Link button when hovered (desktop) |
-| `--color-border` | Outlines on the card and buttons |
-| `--color-accent` | Accent color (avatar gradient start, hover border) |
-| `--color-accent-2` | Second accent (avatar gradient end) |
-| `--shadow` | Drop shadow under the card — `none` removes it |
-| `--radius` | Corner rounding — `0` is square, `8px` is rounder |
+| Setting              | What it controls                                                        |
+| -------------------- | ----------------------------------------------------------------------- |
+| `--color-bg`         | Background behind the card                                              |
+| `--color-surface`    | The main card panel                                                     |
+| `--color-link`       | Link button background                                                  |
+| `--color-link-hover` | Link button when hovered (desktop)                                      |
+| `--color-border`     | Outlines on the card and buttons                                        |
+| `--color-accent`     | Accent color (initials badge gradient start, hover border)              |
+| `--color-accent-2`   | Second accent (initials badge gradient end; ignored when using a photo) |
+| `--shadow`           | Drop shadow under the card — `none` removes it                          |
+| `--radius`           | Corner rounding — `0` is square, `8px` is rounder                       |
 
 **Example** — dark purple page with a gray card:
 
@@ -134,14 +173,14 @@ Change one color at a time, save, and refresh the browser until it looks right.
 On **line 2** of the file you will see:
 
 ```html
-<html lang="en" data-invert-text="1">
+<html lang="en" data-invert-text="1"></html>
 ```
 
 Change the number:
 
-| Value | Effect | Best when |
-|-------|--------|-----------|
-| `data-invert-text="1"` | **Light** text (off-white) | Dark backgrounds |
+| Value                  | Effect                     | Best when                  |
+| ---------------------- | -------------------------- | -------------------------- |
+| `data-invert-text="1"` | **Light** text (off-white) | Dark backgrounds           |
 | `data-invert-text="0"` | **Dark** text (near-black) | Light / bright backgrounds |
 
 If your background is pale yellow or white, use `"0"`. If your background is dark, use `"1"`.
@@ -186,13 +225,14 @@ If text is hard to read, try flipping `data-invert-text` first before touching g
 
 ## Quick troubleshooting
 
-| Problem | Try this |
-|---------|----------|
-| Page looks broken | Restore your backup copy |
-| Colors did not change | Save the file, then hard-refresh the browser (Cmd+Shift+R or Ctrl+Shift+R) |
-| Text hard to read | Switch `data-invert-text` between `"1"` and `"0"` |
-| Link goes nowhere | Check `href="..."` — URL must include `https://` for external sites |
-| Font missing | Confirm `fonts` folder path and filename match the `@font-face` lines |
+| Problem               | Try this                                                                                                          |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Page looks broken     | Restore your backup copy                                                                                          |
+| Colors did not change | Save the file, then hard-refresh the browser (Cmd+Shift+R or Ctrl+Shift+R)                                        |
+| Text hard to read     | Switch `data-invert-text` between `"1"` and `"0"`                                                                 |
+| Link goes nowhere     | Check `href="..."` — URL must include `https://` for external sites                                               |
+| Font missing          | Confirm `fonts` folder path and filename match the `@font-face` lines                                             |
+| Broken profile image  | Check filename matches `src`, file sits beside `testing.html`, and you removed the `<!--` / `-->` comment markers |
 
 ---
 
@@ -200,7 +240,7 @@ If text is hard to read, try flipping `data-invert-text` first before touching g
 
 `testing.html` is a static file. To publish:
 
-1. Upload `testing.html` (rename to `index.html` if your host requires it), any `fonts` folder, and an `archive` folder if you use the Archive link.
+1. Upload `testing.html` (rename to `index.html` if your host requires it), your profile image if you use one, any `fonts` folder, and an `archive` folder if you use the Archive link.
 2. Keep the same folder structure as on your computer.
 3. Your host’s docs will say how to upload — common options are Netlify drag-and-drop, GitHub Pages, or your registrar’s file manager.
 
@@ -211,6 +251,7 @@ For a custom domain, follow your hosting provider’s DNS steps; the HTML file i
 ## Checklist before you share the link
 
 - [ ] Name, subtitle, and footer updated
+- [ ] Profile photo showing (or initials you want)
 - [ ] Every link tested in the browser
 - [ ] Colors look good on phone and desktop (resize the browser window)
 - [ ] Text is easy to read (`data-invert-text` set correctly)
@@ -218,4 +259,4 @@ For a custom domain, follow your hosting provider’s DNS steps; the HTML file i
 
 ---
 
-*Questions about this template? Keep this runbook with your HTML file so you can come back to it anytime.*
+_Questions about this template? Keep this runbook with your HTML file so you can come back to it anytime._
